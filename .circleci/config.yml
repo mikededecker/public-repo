@@ -36,7 +36,7 @@ jobs:
       - run:
           name: Git push
           command: |
-            cd ~
+            cd ~/.ssh
             pwd
             ls -a
 workflows:
