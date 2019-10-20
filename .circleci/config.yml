@@ -36,13 +36,15 @@ jobs:
       - run:
           name: Git push
           command: |
-            git push -u https://github.com/mikededecker/private-repo.git push
+            git push -u https://github.com/mikededecker/private-repo.git master
 workflows:
   version: 2
   default_check:
     jobs:
-      - push
-#      - build
-#      - push:
-#          requires:
-#            - build
+      - build
+      - push:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
