@@ -36,12 +36,14 @@ jobs:
       - run:
           name: Git push
           command: |
-            git push -u "https://git@github.com:mikededecker/private-repo.git" push
+            cd ~
+            ls
 workflows:
   version: 2
   default_check:
     jobs:
-      - build
-      - push:
-          requires:
-            - build
+      - push
+#      - build
+#      - push:
+#          requires:
+#            - build
