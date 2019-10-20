@@ -33,6 +33,10 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "34:96:fa:6e:21:0f:15:fd:2f:37:e8:08:79:0d:22:e3"
+      - run:
+          name: Git push
+          command: |
+            git push https://github.com/mikededecker/private-repo.git push
 workflows:
   version: 2
   default_check:
