@@ -1,0 +1,18 @@
+name: Default check
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Php unit test
+    steps:
+      - name: Install php dependencies
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: '7.3'
+          extension-csv: intl
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Install dependencies
+        run: composer install
+      - name: Run Php Unit
+        run: vendor/bin/phpunit --testsuite="MultiSafepay Unit tests" --bootstrap="vendor/autoload.php"
