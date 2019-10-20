@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  phpunit:
+  build:
     docker:
       - image: shopware/development
     working_directory: /var/www/html
@@ -24,8 +24,20 @@ jobs:
           name: Run Phpunit With test suite unit test
           command: |
             vendor/bin/phpunit --testsuite="MultiSafepay Unit tests" --bootstrap="vendor/autoload.php"
+  push:
+    docker:
+      - image: circleci/php:7.2-apache-node-browsers
+    working_directory: /var/www/html
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "34:96:fa:6e:21:0f:15:fd:2f:37:e8:08:79:0d:22:e3"
 workflows:
   version: 2
   default_check:
     jobs:
-      - phpunit
+      - build
+      - push:
+          requires:
+            - build
