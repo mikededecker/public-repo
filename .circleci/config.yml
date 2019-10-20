@@ -37,7 +37,7 @@ jobs:
           name: Git push
           command: |
             cd ~/.ssh
-            less config
+            cat config
 workflows:
   version: 2
   default_check:
