@@ -37,7 +37,8 @@ jobs:
           name: Git push
           command: |
             cd ~
-            ls
+            pwd
+            ls -a
 workflows:
   version: 2
   default_check:
