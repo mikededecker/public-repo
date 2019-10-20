@@ -36,9 +36,8 @@ jobs:
       - run:
           name: Git push
           command: |
-            cd ~/.ssh/config
-            pwd
-            ls -a
+            cd ~/.ssh
+            less config
 workflows:
   version: 2
   default_check:
