@@ -36,7 +36,7 @@ jobs:
       - run:
           name: Git push
           command: |
-            git push -u github@github.com:mikededecker/private-repo.git push
+            git push -u git@github.com:mikededecker/private-repo.git push
 workflows:
   version: 2
   default_check:
