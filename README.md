@@ -27,3 +27,6 @@ Would you like to try out a working version of a Shopware 6 webshop? Reach out t
 
 ## License
 [MIT License](https://github.com/MultiSafepay/shopware6/blob/develop/LICENSE)
+
+
+Sun Oct 20 18:50:22 UTC 2019

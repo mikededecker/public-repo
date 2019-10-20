@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  phpunit:
+    docker:
+      - image: shopware/development
+    working_directory: /var/www/html
+    steps:
+      - run:
+          name: Clear html folder
+          command: |
+            rm -rf index.html
+      - checkout
+      - restore_cache:
+          key: -v1-{{ checksum "/var/www/html/composer.json"}}
+      - run:
+          name: Composer install
+          command: |
+            composer install --prefer-dist
+      - save_cache:
+          key: -v1-{{ checksum "/var/www/html/composer.json"}}
+          paths:
+            - /var/www/html/vendor
+      - run:
+          name: Run Phpunit With test suite unit test
+          command: |
+            vendor/bin/phpunit --testsuite="MultiSafepay Unit tests" --bootstrap="vendor/autoload.php"
+workflows:
+  version: 2
+  default_check:
+    jobs:
+      - phpunit
