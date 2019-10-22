@@ -1,0 +1,9 @@
+name: Build
+on: [push]
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    name: Php unit test
+    steps:
+      - name: Echo Hello world
+        run: echo ${{ secrets.HELLO_WORLD }}
