@@ -1,0 +1,38 @@
+name: Sync
+on: 
+  push:
+    branches: 
+      - master
+    tags:
+      - '**'
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH keys
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_SECRET_KEY }}
+          REPO: ${{ secrets.REPO }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh_host=$(echo $REPO | sed 's/.*@//' | sed 's/[:/].*//')
+          ssh-keyscan -H 22 "$ssh_host" >> ~/.ssh/known_hosts
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "noreply@github.com"
+      - name: Git push master
+        env:
+          REPO: ${{ secrets.REPO }}
+        run: |
+          git push $REPO HEAD:push
+      - name: Git push tags
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          REPO: ${{ secrets.REPO }}
+        run: |
+          git push $REPO --tags
