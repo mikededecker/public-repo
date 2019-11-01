@@ -8,7 +8,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
       - name: Add remote
-        run: git remote add upstream https://git:${{ secrets.ACTIONS_TOKEN }}@github.com/${{ secrets.PUSH_REPO }}
+        run: git remote add upstream https://mikededecker:${{ secrets.ACTIONS_TOKEN }}@github.com/${{ secrets.PUSH_REPO }}
       - name: Push to master
         run: git push upstream HEAD:push
         env:
