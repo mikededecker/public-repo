@@ -6,7 +6,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
-      
       - name: Configure SSH keys
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_SECRET_KEY }}
