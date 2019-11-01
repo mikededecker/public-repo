@@ -6,7 +6,8 @@ jobs:
     steps:
       - name: Install Ubuntu Packages
         run: |
-          sudo apt install openssh-client git -y
+          sudo apt update
+          sudo apt install openssh-client git
       - name: Configure SSH keys
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_SECRET_KEY }}
