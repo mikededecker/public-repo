@@ -8,6 +8,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
       - name: Add remote
-        run: |
-          pwd
-          ls -a
+        run: git remote add upstream git:${{ secrets.ACTIONS_TOKEN }}@github.com/${{ secrets.PUSH_REPO }}
+      - name: Push
+        run: echo $GITHUB_REF
