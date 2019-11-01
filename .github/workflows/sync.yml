@@ -1,13 +1,14 @@
 name: Sync
-on: [push]
+on: 
+  push:
+    branches: 
+      - master
+    tags:
+      - '**'
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Ubuntu Packages
-        run: |
-          sudo apt update
-          sudo apt install openssh-client git
       - name: Configure SSH keys
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_SECRET_KEY }}
@@ -24,13 +25,14 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "noreply@github.com"
-      - name: Git push
+      - name: Git push master
         env:
           REPO: ${{ secrets.REPO }}
         run: |
           git push $REPO HEAD:push
-      - name: push tags
+      - name: Git push tags
         if: startsWith(github.ref, 'refs/tags/')
+        env:
+          REPO: ${{ secrets.REPO }}
         run: |
-          git remote add upstream https://mikededecker:${{ secrets.ACTIONS_TOKEN }}@github.com/${{ secrets.PUSH_REPO }}
-          git push upstream --tags
+          git push $REPO --tags
