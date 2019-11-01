@@ -10,8 +10,7 @@ jobs:
       - name: Add remote
         run: git remote add upstream git:${{ secrets.ACTIONS_TOKEN }}@github.com/${{ secrets.PUSH_REPO }}
       - name: Push to master
-        if: github.ref == 'refs/heads/master'
-        run: git push upstream master
+        run: git push upstream push
       - name: push tags
         if: startsWith(github.ref, 'refs/tags/')
         run: git push upstream --tags
