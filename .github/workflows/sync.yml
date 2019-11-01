@@ -4,8 +4,9 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v1
+      - name: Install Ubuntu Packages
+        run: |
+          sudo apt install openssh-client git -y
       - name: Configure SSH keys
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_SECRET_KEY }}
@@ -16,6 +17,8 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh_host=$(echo $REPO | sed 's/.*@//' | sed 's/[:/].*//')
           ssh-keyscan -H 22 "$ssh_host" >> ~/.ssh/known_hosts
+      - name: Checkout code
+        uses: actions/checkout@v1
       - name: Git push
         env:
           REPO: ${{ secrets.REPO }}
