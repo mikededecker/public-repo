@@ -1,4 +1,4 @@
-name: Build
+name: Sync
 on: [push]
 jobs:
   sync:
@@ -9,5 +9,9 @@ jobs:
         uses: actions/checkout@v1
       - name: Add remote
         run: git remote add upstream git:${{ secrets.ACTIONS_TOKEN }}@github.com/${{ secrets.PUSH_REPO }}
-      - name: Push
-        run: echo $GITHUB_REF
+      - name: Push to master
+        if: github.ref == 'refs/heads/master'
+        run: git push upstream master
+      - name: push tags
+        if: startsWith(github.ref, 'refs/tags/')
+        run: git push upstream --tags
