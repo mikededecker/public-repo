@@ -18,6 +18,3 @@ jobs:
         run: |
           git remote add upstream https://mikededecker:${{ secrets.ACTIONS_TOKEN }}@github.com/${{ secrets.PUSH_REPO }}
           git push upstream --tags
-        env:
-          CI: true
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
